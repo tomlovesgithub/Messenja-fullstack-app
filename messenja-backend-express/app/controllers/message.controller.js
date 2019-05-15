@@ -11,7 +11,7 @@ var MessageCtrl = function(Message){
 				res.json({status: false, error: err.message});
 				return;
 			}
-			res.json({status: true, message: message});
+			res.status(201).json({status: true, message: message});
 		});
 	}
 
@@ -26,12 +26,12 @@ var MessageCtrl = function(Message){
 	}
 
 	MessageObj.GetMessage = function (req, res, next) {
-    Message.findById(req.params.id, function (err, message) {
+    Message.findById(req.body.id, function (err, message) {
         if (err) {
 					res.status(404).json({ error: "message not found"});
 					return
 				}
-				res.json({status: true, message: messages});
+				res.json({status: true, message: message});
     })
 };
 
