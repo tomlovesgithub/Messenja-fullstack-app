@@ -8,7 +8,7 @@ var MessageCtrl = function(Message){
 		var newMessage = new Message(req.body);
 		newMessage.save(function(err, message){
 			if(err){
-				res.json({status: false, error: err.message});
+				res.status(400).json({ error: "message not created"});
 				return;
 			}
 			res.status(201).json({status: true, message: message});
@@ -39,7 +39,7 @@ var MessageCtrl = function(Message){
 		Message.findById(req.params.id, function(err, message){
 			message.save(function(err, message){
 				if(err) {
-					res.json({status: false, error: "Message not updated"});
+					res.status(404).json({ error: "message not updated"});
 				}
 				res.json({status: true, message: "Message updated successfully"});
 			});
@@ -49,7 +49,7 @@ var MessageCtrl = function(Message){
 	MessageObj.DeleteMessage = function(req, res, next){
 		Message.remove({_id : req.params.id }, function(err, messages){
 			if(err) {
-				res.json({status: false, error: "Delete message unsuccessfull"});
+				res.status(404).json({ error: "message not deleted"});
 			}
 			res.json({status: true, message: "Message deleted successfully"});
 		});

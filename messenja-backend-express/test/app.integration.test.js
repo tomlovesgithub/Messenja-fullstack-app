@@ -22,6 +22,27 @@ describe('POST /messages', function () {
   });
 });
 
+// API errors on bad message post
+
+  describe('POST /messages', function () {
+    let data = {
+      "content": ""
+    }
+    it('respond with 400 not created', function (done) {
+      request(app)
+      .post('/messages')
+      .send(data)
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(400)
+      .expect({error: "message not created"}) // expecting content value
+      .end((err) => {
+        if (err) return done(err);
+        done();
+      });
+    });
+  });
+
 // API should be able to display all messages
 
 describe('GET /messages', function () {
@@ -61,31 +82,6 @@ describe('GET /messages/:id', function () {
     .end((err) => {
       if (err) return done(err);
       done();
-    });
-  });
-
-  /**
-  * Testing post message endpoint
-  */
-  describe('POST /messages', function () {
-    let data = {
-      //no id
-      "name": "dummy",
-      "contact": "dummy",
-      "address": "dummy"
-    }
-    it('respond with 400 not created', function (done) {
-      request(app)
-      .post('/messages')
-      .send(data)
-      .set('Accept', 'application/json')
-      .expect('Content-Type', /json/)
-      .expect(400)
-      .expect('"message not created"')
-      .end((err) => {
-        if (err) return done(err);
-        done();
-      });
     });
   });
 });
