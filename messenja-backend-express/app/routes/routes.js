@@ -5,7 +5,7 @@ module.exports = function(app){
 
 	app.get('/messages', MessageController.GetAll);
 
-	app.get('/messages/:id', MessageController.GetMessage);
+	app.get('/messages/message/:id', MessageController.GetMessage);
 
 	app.post('/messages', MessageController.PostMessage);
 

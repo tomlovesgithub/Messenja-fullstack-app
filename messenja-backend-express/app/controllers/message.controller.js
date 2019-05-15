@@ -27,13 +27,16 @@ var MessageCtrl = function(Message){
 
 	MessageObj.GetMessage = function (req, res, next) {
     Message.findById(req.params.id, function (err, message) {
-        if (err) return next(err);
-        res.send(message);
+        if (err) {
+					res.status(404).json({ error: "message not found"});
+					return
+				}
+				res.json({status: true, message: messages});
     })
 };
 
 	MessageObj.UpdateMessage = function(req, res, next){
-		Message.findById(req.params.message_id, function(err, message){
+		Message.findById(req.params.id, function(err, message){
 			message.save(function(err, message){
 				if(err) {
 					res.json({status: false, error: "Message not updated"});
@@ -44,7 +47,7 @@ var MessageCtrl = function(Message){
 	}
 
 	MessageObj.DeleteMessage = function(req, res, next){
-		Message.remove({_id : req.params.message_id }, function(err, messages){
+		Message.remove({_id : req.params.id }, function(err, messages){
 			if(err) {
 				res.json({status: false, error: "Delete message unsuccessfull"});
 			}
