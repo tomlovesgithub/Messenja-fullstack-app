@@ -15,7 +15,7 @@ var MessageCtrl = function(Message){
 		});
 	}
 
-	MessageObj.GetMessage = function(req, res, next){
+	MessageObj.GetAll = function(req, res, next){
 		Message.find(function(err, messages){
 			if(err) {
 				res.json({status: false, error: "Something went wrong"});
@@ -24,6 +24,13 @@ var MessageCtrl = function(Message){
 			res.json({status: true, message: messages});
 		});
 	}
+
+	MessageObj.GetMessage = function (req, res, next) {
+    Message.findById(req.params.id, function (err, message) {
+        if (err) return next(err);
+        res.send(message);
+    })
+};
 
 	MessageObj.UpdateMessage = function(req, res, next){
 		Message.findById(req.params.message_id, function(err, message){
