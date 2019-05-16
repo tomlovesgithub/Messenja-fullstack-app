@@ -9,7 +9,7 @@ module.exports = function(app){
 
 	app.post('/messages', MessageController.PostMessage);
 
-	app.put('/messages/:id', MessageController.UpdateMessage);
+	app.put('/messages/updatemessage/:id', MessageController.UpdateMessage);
 
 	app.delete('/messages/:id', MessageController.DeleteMessage);
 

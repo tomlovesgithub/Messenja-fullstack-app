@@ -2,7 +2,7 @@ const request = require('supertest');
 const app = require('../app');
 
 // API should be able to post messages
-context('POST /messages', function functionName() {
+context('POST /messages', function () {
   describe('success', function () {
     let data = {
       "content": "test-message"
@@ -40,8 +40,7 @@ context('POST /messages', function functionName() {
     });
   });
 });
-// API should be able to display all messages
-// API can return a single message from given message ID
+// API should be able to display messages
 context('GET /messages', function () {
   describe('all', function () {
     it('respond with json containing a list of all messages', function (done) {
@@ -80,3 +79,41 @@ context('GET /messages', function () {
     });
   });
 })
+// API should be able to delete messages
+context('UPDATE /messages', function () {
+  describe('success', function () {
+    let data = {
+      "content": "updated",
+      "id": "5cdc4a58832fc531cd622d3d"
+    }
+    it('respond with 201 updated', function (done) {
+      request(app)
+      .put('/messages/updatemessage/5cdc4a58832fc531cd622d3d')
+      .send(data)
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(201)
+      done();
+    });
+  });
+  // API errors on bad message update
+  describe('error', function () {
+    let data = {
+      "content": "bad update",
+      "id": "1234"
+    }
+    it('respond with 400 not created', function (done) {
+      request(app)
+      .put('/messages/updatemessage/1234')
+      .send(data)
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(400)
+      .expect({error: "message not updated"}) // expecting content value
+      .end((err) => {
+        if (err) return done(err);
+        done();
+      });
+    });
+  });
+});

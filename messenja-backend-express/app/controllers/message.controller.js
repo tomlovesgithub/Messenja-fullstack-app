@@ -26,23 +26,26 @@ var MessageCtrl = function(Message){
 	}
 
 	MessageObj.GetMessage = function (req, res, next) {
-    Message.findById(req.body.id, function (err, message) {
-        if (err) {
-					res.status(404).json({ error: "message not found"});
-					return
-				}
-				res.json({status: true, message: message});
-    })
-};
+		Message.findById(req.body.id, function (err, message) {
+			if (err) {
+				res.status(404).json({ error: "message not found"});
+				return
+			}
+			res.json({status: true, message: message});
+		})
+	};
 
-	MessageObj.UpdateMessage = function(req, res, next){
-		Message.findById(req.params.id, function(err, message){
-			message.save(function(err, message){
-				if(err) {
-					res.status(404).json({ error: "message not updated"});
-				}
-				res.json({status: true, message: "Message updated successfully"});
-			});
+	MessageObj.UpdateMessage = function (req, res, next) {
+		var content = req.body.content;
+		Message.findById(req.body.id, function(err, message){
+			if(err) {
+				res.status(400).json({error: "message not updated"});
+			} else {
+				message.save(function(err, message){
+					message.content = content;
+					res.status(201).json({status: true, message: "message updated successfully"});
+				});
+			};
 		});
 	}
 
