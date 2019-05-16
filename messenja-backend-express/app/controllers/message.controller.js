@@ -50,11 +50,12 @@ var MessageCtrl = function(Message){
 	}
 
 	MessageObj.DeleteMessage = function(req, res, next){
-		Message.remove({_id : req.params.id }, function(err, messages){
+		Message.remove({_id : req.body.id }, function(err, messages){
 			if(err) {
-				res.status(404).json({ error: "message not deleted"});
-			}
+				res.status(400).json({ error: "message not deleted"});
+			} else {
 			res.json({status: true, message: "Message deleted successfully"});
+			}
 		});
 	}
 

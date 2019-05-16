@@ -11,6 +11,6 @@ module.exports = function(app){
 
 	app.put('/messages/updatemessage/:id', MessageController.UpdateMessage);
 
-	app.delete('/messages/:id', MessageController.DeleteMessage);
+	app.delete('/messages/deletemessage/:id', MessageController.DeleteMessage);
 
 }

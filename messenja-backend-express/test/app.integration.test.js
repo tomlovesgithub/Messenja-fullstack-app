@@ -2,7 +2,7 @@ const request = require('supertest');
 const app = require('../app');
 
 // API should be able to post messages
-context('POST /messages', function () {
+context('POST', function () {
   describe('success', function () {
     let data = {
       "content": "test-message"
@@ -41,7 +41,7 @@ context('POST /messages', function () {
   });
 });
 // API should be able to display messages
-context('GET /messages', function () {
+context('GET', function () {
   describe('all', function () {
     it('respond with json containing a list of all messages', function (done) {
       request(app)
@@ -79,8 +79,8 @@ context('GET /messages', function () {
     });
   });
 })
-// API should be able to delete messages
-context('UPDATE /messages', function () {
+// API should be able to update messages
+context('UPDATE', function () {
   describe('success', function () {
     let data = {
       "content": "updated",
@@ -110,6 +110,42 @@ context('UPDATE /messages', function () {
       .expect('Content-Type', /json/)
       .expect(400)
       .expect({error: "message not updated"}) // expecting content value
+      .end((err) => {
+        if (err) return done(err);
+        done();
+      });
+    });
+  });
+});
+// API should be able to delete messages
+context('DELETE', function () {
+  describe('success', function () {
+    let data = {
+      "id": "5cdc4a58832fc531cd622d3d"
+    }
+    it('respond with 201 deleted', function (done) {
+      request(app)
+      .delete('/messages/deletemessage/5cdc4a58832fc531cd622d3d')
+      .send(data)
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(201)
+      done();
+    });
+  });
+  // API errors on bad message delete
+  describe('error', function () {
+    let data = {
+      "id": "1234"
+    }
+    it('respond with 400 not created', function (done) {
+      request(app)
+      .delete('/messages/deletemessage/1234')
+      .send(data)
+      // .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(400)
+      .expect({error: "message not deleted"}) // expecting content value
       .end((err) => {
         if (err) return done(err);
         done();
