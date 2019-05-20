@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 
 class MessageList extends Component {
-  listBody(message) {
+  listBody = (message) => {
     const { date, content, id } = message
+    const { deleteFromDB } = this.props
     return (
       <ul style={{ listStyle: "none" }} >
       { <li style={{ padding: "10px" }} key={id}>
@@ -12,7 +13,7 @@ class MessageList extends Component {
       <span style={{ color: "gray" }}> content: </span>
       {content}
       <br/>
-      <button>
+      <button onClick={() => deleteFromDB(id)}>
       DEL
       </button>
       </li>
@@ -22,7 +23,6 @@ class MessageList extends Component {
 }
 render() {
     const messages = this.props.messages;
-    console.log(this);
     const messageList = messages.map(this.listBody);
     return <div>{messageList}</div>;
   }

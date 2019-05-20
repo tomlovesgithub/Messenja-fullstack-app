@@ -1,6 +1,6 @@
 const serverUrl = Cypress.env('serverUrl');
 
-describe('message app', () => {
+describe('message app - e2e', () => {
   beforeEach(() => {
     // fixtures
     cy.fixture('messages/all_before.json').as('messagesJSON');
@@ -16,15 +16,9 @@ describe('message app', () => {
     cy.get('#title').contains('Mesenja');
   });
 
-  it('should add a new message to the list', () => {
-  });
-
   it('should display the message list', () => {
     cy.get('li').its('length').should('eq', 6);
     cy.get('li').eq(0).contains('Hi First Message');
-  });
-
-  it('should update a message correctly', () => {
   });
 
 });

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import MessageList from './Components/messageList';
+import MessageForm from './Components/messageForm';
 import Header from './Components/Header';
 import axios from "axios";
 const PORT = 3001;
@@ -49,6 +50,48 @@ class App extends Component {
       .catch((err) => {console.log(err);});
   };
 
+  // our put method that uses our backend api
+  // to create new query into our database
+  putMessageToDB = message => {
+    axios.post(`http://localhost:${PORT}/messages/create`, {
+      message: message
+    });
+  };
+
+  // our delete method that uses our backend api
+  // to remove existing database information
+
+  deleteFromDB = idTodelete => {
+    let objIdToDelete = null;
+    this.state.messages.forEach(message => {
+      if (message.id === idTodelete) {
+        objIdToDelete = message._id;
+      }
+    });
+
+    axios.delete(`http://localhost:${PORT}/messages/delete`, {
+      messages: {
+        id: objIdToDelete
+      }
+    });
+  };
+  // our update method that uses our backend api
+  // to overwrite existing database information
+
+  updateDB = (idToUpdate, updateToApply) => {
+    let objIdToUpdate = null;
+    this.state.messages.forEach(message => {
+      if (message.id === idToUpdate) {
+        objIdToUpdate = message._id;
+      }
+    });
+
+    axios.post(`http://localhost:${PORT}/messages/update`, {
+      id: objIdToUpdate,
+      update: { message: updateToApply }
+    });
+  };
+
 
   // here is our UI
   // it is easy to understand their functions when you
@@ -57,10 +100,17 @@ class App extends Component {
     return (
       <center>
       <Header />
+      <MessageForm
+      addMessage={this.putMessageToDB}
+      inputElement={this.inputElement}
+      handleInput={this.handleInput}
+      currentMessage={this.state.message}
+      />
 
       <MessageList
        messages ={this.state.messages}
        loaded = {this.state.loaded}
+       deleteFromDB = {this.deleteFromDB}
        />
       </center>
     );
