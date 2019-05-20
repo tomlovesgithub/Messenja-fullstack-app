@@ -3,6 +3,9 @@ const app = require('../app');
 
 // API should be able to post messages
 context('POST', function () {
+  // before(function() {
+  //   console.log('before all POST test');
+  // });
   describe('success', function () {
     let data = {
       "content": "test-message"
@@ -42,6 +45,9 @@ context('POST', function () {
 });
 // API should be able to display messages
 context('GET', function () {
+  before(function() {
+    console.log('before all GET tests');
+  });
   describe('all', function () {
     it('respond with json containing a list of all messages', function (done) {
       request(app)
@@ -81,6 +87,9 @@ context('GET', function () {
 })
 // API should be able to update messages
 context('UPDATE', function () {
+  before(function() {
+    console.log('before all UPDATE tests');
+  });
   describe('success', function () {
     let data = {
       "content": "updated",
@@ -119,6 +128,9 @@ context('UPDATE', function () {
 });
 // API should be able to delete messages
 context('DELETE', function () {
+  before(function() {
+    console.log('before all DELETE tests');
+  });
   describe('success', function () {
     let data = {
       "id": "5cdc4a58832fc531cd622d3d"

@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 
 var MessageSchema = new Schema({
 	content: String,
-	date: { type: Date, default: Date.now }
+	date: { type: Date, default: new Date() }
 });
 
 MessageSchema.pre('save', function(next, done) {
