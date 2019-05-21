@@ -17,7 +17,7 @@ describe('message app', () => {
     cy.get('#title').contains('Mesenja');
   });
 
-  it('should display the message list', () => {
+  it.only('should display the message list', () => {
     cy.get('li').its('length').should('eq', 6);
     cy.get('li').eq(0).contains('Hi First Message');
   });

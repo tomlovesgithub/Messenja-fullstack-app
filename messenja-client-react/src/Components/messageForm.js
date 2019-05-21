@@ -4,25 +4,25 @@ class MessageForm extends Component {
 
   componentDidUpdate() {
       this.props.inputElement.current.focus()
+      // console.log(this);
     }
 
   render() {
     return (
-      <form onSubmit={this.props.putMessageToDB}>
-      <textarea
-        ref={this.props.inputElement}
-        value={this.props.message}
-        onChange={this.props.handleInput}
-      />
-      <br/>
-      <button
-      type="submit"
-      onClick={this.props.transition}
-      >
-      SEND
-      </button>
-    </form>
-    )
-  }
+      <form onSubmit={this.props.addMessage}>
+            <textarea
+              ref={this.props.inputElement}
+              value={this.props.currentMessage.content}
+              onChange={this.props.handleInput}
+            />
+            <br/>
+            <button
+            type="submit"
+            >
+            SEND
+            </button>
+          </form>
+      )
+    }
 }
 export default MessageForm
