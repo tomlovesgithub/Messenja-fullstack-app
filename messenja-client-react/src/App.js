@@ -18,11 +18,14 @@ class App extends Component {
     this.addMessage.bind(this);
   }
 
-  componentDidMount(){
-    this.getMessages()
-  }
+  // componentDidMount(){
+  //   this.getMessages()
+  // }
 
   handleInput = (e) => {
+    console.log('in handleInput')
+    // console.log(e)
+    e.preventDefault();
     const messageContent = e.target.value;
     const currentMessage = { content: messageContent };
     this.setState({
@@ -33,22 +36,30 @@ class App extends Component {
   addMessage = (e) => {
     // our put method that uses our backend api
     // to create new query into our database
-    // e.preventDefault();
+    console.log('in addMessage')
+    e.preventDefault();
     const newMessage = this.state.currentMessage.content;
     if (newMessage !== '') {
       axios.post(`http://localhost:${PORT}/messages`, {
         content: newMessage
-      })
-      this.setState({
-        currentMessage: {
-          content: ""
+      }).then((res) => {
+          console.log(res);
+          console.log(res.data.message);
+          this.setState({
+            currentMessage: {
+              content: ""
+            },
+            messages: [...this.state.messages, res.data.message],
+          })
         }
-      })
+      )
+
       console.table(this.state.messages);
     }
   }
 
   getMessages = () => {
+    console.log('get message')
     // our first get method that uses our backend api to
     // fetch data from our database
     axios.get(`http://localhost:${PORT}/messages`)
@@ -95,9 +106,9 @@ class App extends Component {
         <center>
         <Header />
         <MessageForm
-        addMessage={this.addMessage}
+        addMessage={(e) => this.addMessage(e)}
         inputElement={this.inputElement}
-        handleInput={this.handleInput}
+        handleInput={(e) => this.handleInput(e)}
         currentMessage={this.state.currentMessage}
         />
 

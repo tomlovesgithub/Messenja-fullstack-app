@@ -28,7 +28,7 @@ var MessageCtrl = function(Message){
 	MessageObj.GetMessage = function (req, res, next) {
 		Message.findById(req.body.id, function (err, message) {
 			if (err) {
-				res.status(404).json({ error: `${err}`});
+				res.status(404).json({ error: `message not found ${err}`});
 				return
 			}
 			res.json({status: true, message: message});
@@ -37,7 +37,7 @@ var MessageCtrl = function(Message){
 
 	MessageObj.UpdateMessage = function (req, res, next) {
 		var content = req.body.content;
-		Message.findById(req.body.id, function(err, message){
+		Message.findOne(req.body.id, function(err, message){
 			if(err) {
 				res.status(400).json({error: `message not updated ${err}`});
 			} else {
@@ -50,7 +50,7 @@ var MessageCtrl = function(Message){
 	}
 
 	MessageObj.DeleteMessage = function(req, res, next){
-		Message.deleteOne({id : req.body.id }, function(err, messages){
+		Message.deleteOne({_id : req.body.id }, function(err, messages){
 			if(err) {
 				res.status(400).json({error: `message not deleted ${err}`});
 			} else {

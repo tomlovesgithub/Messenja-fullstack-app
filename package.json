@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently \"cd messenja-backend-express && node app.js\" \"cd messenja-client-react && npm start\""
+    "start": "concurrently \"mongod\" \"cd messenja-backend-express && node app.js\" \"cd messenja-client-react && npm start\""
   },
   "author": "",
   "license": "ISC",

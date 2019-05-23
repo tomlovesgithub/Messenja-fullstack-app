@@ -14,7 +14,7 @@ class MessageList extends Component {
         return (
           <li
           style={{ listStyleType: "none" }}
-          key={_id}>
+          key={Math.random()}>
           time: {new Date(date).toLocaleDateString()}
           <br />
           date: {new Date(date).toLocaleTimeString()}

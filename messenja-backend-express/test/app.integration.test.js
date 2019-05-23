@@ -35,7 +35,7 @@ context('POST', function () {
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(400)
-      .expect({error: "message not created"}) // expecting content value
+      .expect({error: "Message not posted Error: Message should not be null"}) // expecting content value
       .end((err) => {
         if (err) return done(err);
         done();
@@ -77,7 +77,7 @@ context('GET', function () {
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(404) //expecting HTTP status code
-      .expect({error: "message not found"}) // expecting content value
+      .expect({error: `message not found CastError: Cast to ObjectId failed for value "false_id" at path "_id" for model "Message"`})
       .end((err) => {
         if (err) return done(err);
         done();
@@ -97,7 +97,7 @@ context('UPDATE', function () {
     }
     it('respond with 201 updated', function (done) {
       request(app)
-      .put('/messages/updatemessage/5cdc4a58832fc531cd622d3d')
+      .put('/messages/update/5cdc4a58832fc531cd622d3d')
       .send(data)
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -113,12 +113,12 @@ context('UPDATE', function () {
     }
     it('respond with 400 not created', function (done) {
       request(app)
-      .put('/messages/updatemessage/1234')
+      .put(`/messages/update/${data.id}`)
       .send(data)
       .set('Accept', 'application/json')
-      .expect('Content-Type', /json/)
+      // .expect('Content-Type', /json/)
       .expect(400)
-      .expect({error: "message not updated"}) // expecting content value
+      .expect({error: "message not updated ObjectParameterError: Parameter \"filter\" to findOne() must be an object, got 1234"}) // expecting content value
       .end((err) => {
         if (err) return done(err);
         done();
@@ -137,7 +137,7 @@ context('DELETE', function () {
     }
     it('respond with 201 deleted', function (done) {
       request(app)
-      .delete('/messages/deletemessage/5cdc4a58832fc531cd622d3d')
+      .delete('/messages/delete/message/5cdc4a58832fc531cd622d3d')
       .send(data)
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -152,12 +152,12 @@ context('DELETE', function () {
     }
     it('respond with 400 not created', function (done) {
       request(app)
-      .delete('/messages/deletemessage/1234')
+      .delete(`/messages/delete/${data.id}`)
       .send(data)
-      // .set('Accept', 'application/json')
+      .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(400)
-      .expect({error: "message not deleted"}) // expecting content value
+      .expect({error: `message not deleted CastError: Cast to ObjectId failed for value \"1234\" at path \"_id\" for model \"Message\"`}) // expecting content value
       .end((err) => {
         if (err) return done(err);
         done();
