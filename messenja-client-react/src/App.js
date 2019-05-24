@@ -18,9 +18,9 @@ class App extends Component {
     this.addMessage.bind(this);
   }
 
-  // componentDidMount(){
-  //   this.getMessages()
-  // }
+  componentWillMount(){
+    this.getMessages()
+  }
 
   handleInput = (e) => {
     console.log('in handleInput')

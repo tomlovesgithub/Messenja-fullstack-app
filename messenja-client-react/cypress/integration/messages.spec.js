@@ -11,13 +11,12 @@ describe('message app', () => {
     cy.server();
     cy.route('GET', `${serverUrl}/messages`, '@messagesJSON').as('getAllMessages');
 
-
     cy.visit('/');
     cy.wait('@getAllMessages');
     cy.get('#title').contains('Mesenja');
   });
 
-  it.only('should display the message list', () => {
+  it('should display the message list', () => {
     cy.get('li').its('length').should('eq', 6);
     cy.get('li').eq(0).contains('Hi First Message');
   });
