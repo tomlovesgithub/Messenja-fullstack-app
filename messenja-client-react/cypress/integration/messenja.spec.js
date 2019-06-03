@@ -1,6 +1,6 @@
 const serverUrl = Cypress.env('serverUrl');
 
-describe('message app - e2e', () => {
+describe('message app', () => {
   beforeEach(() => {
     // fixtures
     cy.fixture('messages/all_before.json').as('messagesJSON');
@@ -31,6 +31,12 @@ describe('message app - e2e', () => {
     cy.get('li').its('length').should('eq', 1);
   });
 
+  it('can post a message', () => {
+    cy.get('textarea').type('Hello, World')
+    cy.get('form > button').click()
+    cy.get('li').contains('Hello, World');
+  });
+
   it('can delete all messages', () => {
     cy.get('li').its('length').should('eq', 2);
     cy.get('li').eq(0).contains('Hi First Message');
@@ -40,5 +46,7 @@ describe('message app - e2e', () => {
 
     cy.get('center > div').contains('No Messages');
   });
+
+
 
 });
