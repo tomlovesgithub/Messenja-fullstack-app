@@ -10,19 +10,28 @@ class MessageList extends Component {
 
   listBody(message) {
     const { date, content, _id } = message
-    console.log(this.props);
+    console.log(_id);
+    // id: {_id}
         return (
           <li
           style={{ listStyleType: "none" }}
-          key={Math.random()}>
-          time: {new Date(date).toLocaleDateString()}
+          key={_id}>
           <br />
-          date: {new Date(date).toLocaleTimeString()}
+          time:
           <br />
-          message: {content}
+          {new Date(date).toLocaleDateString()}
+          <br />
+          date:
+          <br />
+          {new Date(date).toLocaleTimeString()}
+          <br />
+          message:
+          <br />
+          {content}
           <br />
           <button
-          onClick={this.props.deleteFromDB(_id)}>
+          type="submit"
+          onClick={() => { this.props.deleteFromDB(_id)}}>
           Del
           </button>
           </li>
@@ -30,8 +39,12 @@ class MessageList extends Component {
   }
     render() {
     const messages = this.props.messages;
-    const messageList = messages.map(this.listBody.bind(this));
-
+    var messageList = ""
+    if (messages.length !== 0) {
+      messageList = messages.map(this.listBody.bind(this));
+    } else {
+      messageList = "No Messages";
+  }
     return <div>{messageList}</div>;
   }
 }

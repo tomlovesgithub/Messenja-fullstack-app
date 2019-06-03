@@ -18,7 +18,7 @@ class App extends Component {
     this.addMessage.bind(this);
   }
 
-  componentWillMount(){
+  componentWillMount() {
     this.getMessages()
   }
 
@@ -43,82 +43,97 @@ class App extends Component {
       axios.post(`http://localhost:${PORT}/messages`, {
         content: newMessage
       }).then((res) => {
-          console.log(res);
-          console.log(res.data.message);
-          this.setState({
-            currentMessage: {
-              content: ""
-            },
-            messages: [...this.state.messages, res.data.message],
-          })
-        }
-      )
+        console.log(res);
+        console.log(res.data.message);
+        this.setState({
+          currentMessage: {
+            content: ""
+          },
+          messages: [...this.state.messages, res.data.message],
+        })
+      }
+    )
 
-      console.table(this.state.messages);
-    }
+    console.table(this.state.messages);
   }
+}
 
   getMessages = () => {
     console.log('get message')
     // our first get method that uses our backend api to
     // fetch data from our database
     axios.get(`http://localhost:${PORT}/messages`)
-    .then((res) => { this.setState({ messages: res.data.message, loaded: true }); })
-      .catch((err) => {console.log(err);});
+    .then((res) => { this.setState({
+      messages: res.data.message,
+      loaded: true
+    }); })
+    .catch((err) => {console.log(err);});
   };
 
-  deleteFromDB = idTodelete => {
-    // our delete method that uses our backend api
-    // to remove existing database information
+  deleteFromDB = (idToDelete) => {
+    parseInt(idToDelete);
     let objIdToDelete = null;
-    this.state.messages.forEach(message => {
-      if (message.id === idTodelete) {
-        objIdToDelete = message.id;
-      }
-    });
+    this.state.messages.forEach((message) => {
+      if (message._id === idToDelete) {
+        objIdToDelete = message._id;
 
-    axios.delete(`http://localhost:${PORT}/messages/delete/${idTodelete}`, {
-      messages: {
-        id: objIdToDelete
-      }
-    });
+        axios.delete(`http://localhost:${PORT}/messages/delete/${objIdToDelete}`, {
+          messages: {
+            id: objIdToDelete,
+          }
+        },
+
+        console.log('in delete')
+      )
+      .then((res) => { this.setState(
+        {
+          messages: [...this.state.messages.filter(message=>message._id !== idToDelete)]
+        })
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    }
+  });
   };
 
   updateDB = (idToUpdate, updateToApply) => {
-    // // our update method that uses our backend api
-    // // to overwrite existing database information
-    let objIdToUpdate = null;
-    this.state.messages.forEach(message => {
-      if (message.id === idToUpdate) {
-        objIdToUpdate = message._id;
-      }
-    });
-
-    axios.post(`http://localhost:${PORT}/messages/update`, {
-      id: objIdToUpdate,
-      update: { message: updateToApply }
-    });
-  };
-
-    render() {
-
-      return (
-        <center>
-        <Header />
-        <MessageForm
-        addMessage={(e) => this.addMessage(e)}
-        inputElement={this.inputElement}
-        handleInput={(e) => this.handleInput(e)}
-        currentMessage={this.state.currentMessage}
-        />
-
-        <MessageList
-        messages={this.state.messages}
-        deleteFromDB={this.deleteFromDB}
-        />
-        </center>
-      )
+  // // our update method that uses our backend api
+  // // to overwrite existing database information
+  let objIdToUpdate = null;
+  this.state.messages.forEach(message => {
+    if (message.id === idToUpdate) {
+      objIdToUpdate = message._id;
     }
-  }
+  })
 
-  export default App
+  axios.post(`http://localhost:${PORT}/messages/update`, {
+    id: objIdToUpdate,
+    update: { message: updateToApply }
+  });
+};
+
+render() {
+
+  return (
+    <center>
+    <Header />
+    <MessageForm
+    addMessage={(e) => this.addMessage(e)}
+    inputElement={this.inputElement}
+    handleInput={(e) => this.handleInput(e)}
+    currentMessage={this.state.currentMessage}
+    />
+
+    <MessageList
+    messages={this.state.messages}
+    deleteFromDB={this.deleteFromDB}
+    />
+    </center>
+  )
+}
+
+}
+
+export default App
