@@ -78,7 +78,7 @@ class App extends Component {
         objIdToDelete = message._id;
 
         axios.delete(`http://localhost:${PORT}/messages/delete/${objIdToDelete}`, {
-          messages: {
+          data: {
             id: objIdToDelete,
           }
         },

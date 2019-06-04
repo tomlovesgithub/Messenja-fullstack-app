@@ -10,7 +10,6 @@ class MessageList extends Component {
 
   listBody(message) {
     const { date, content, _id } = message
-    console.log(_id);
     // id: {_id}
         return (
           <li
