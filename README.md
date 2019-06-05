@@ -13,7 +13,15 @@ I used mocha for the first time to test drive the backend for *get*,  *post*, *d
 
 ## Current Features
 ![](imgs/blank.png)
- -
+ - Post a message, and have it saved to the database with content, time and unique ID
+ ![](imgs/msg.png)
+ - Delete individual messsages
+
+   - in progress
+     - view individual message
+     - Update messages 
+     - User Auth
+     - Further styling
 
 ## Frontend
  - [**React**](https://reactjs.org/)
