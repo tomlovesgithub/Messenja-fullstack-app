@@ -1,5 +1,5 @@
 # Messenja-fullstack-app
-Modelled off of [similar](https://github.com/tomlovesgithub/messenger_js) [projects](https://github.com/tomlovesgithub/Messenger) i've done in the past, this project was intended as a learning venture into react, and node libraries for fullstack development. 
+Modelled off of [similar](https://github.com/tomlovesgithub/messenger_js) [projects](https://github.com/tomlovesgithub/Messenger) i've done in the past, this project was intended as a learning venture into react, and node libraries for fullstack development.
 ## To run
  - clone/download this repository
  - navigate to this repository in your terminal
@@ -7,9 +7,13 @@ Modelled off of [similar](https://github.com/tomlovesgithub/messenger_js) [proje
  - then `npm start`
  - React should launch the webpage in your default browser for you
 
-## About 
-Currently still WIP, the React frontend communicates with an express API which feeds a mongoose database. 
-I used mocha for the first time to test drive the backend for *get*,  *post*, *delete*, and  *update* features. I also used Cypress to configure, and refactor the frontend correctly. 
+## About
+Currently still WIP, the React frontend communicates with an express API which feeds a mongoose database.
+I used mocha for the first time to test drive the backend for *get*,  *post*, *delete*, and  *update* features. I also used Cypress to configure, and refactor the frontend correctly.
+
+## Current Features
+![](imgs/blank.png)
+ -
 
 ## Frontend
  - [**React**](https://reactjs.org/)

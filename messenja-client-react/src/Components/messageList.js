@@ -18,15 +18,21 @@ class MessageList extends Component {
           <br />
           time:
           <br />
+          <text>
           {new Date(date).toLocaleDateString()}
+          </text>
           <br />
           date:
           <br />
+          <text>
           {new Date(date).toLocaleTimeString()}
+          </text>
           <br />
           message:
           <br />
+          <text>
           {content}
+          </text>
           <br />
           <button
           type="submit"
@@ -40,11 +46,11 @@ class MessageList extends Component {
     const messages = this.props.messages;
     var messageList = ""
     if (messages.length !== 0) {
-      messageList = messages.map(this.listBody.bind(this));
+      messageList = messages.map(this.listBody.bind(this)).reverse();
     } else {
       messageList = "No Messages";
   }
-    return <div>{messageList}</div>;
+    return <div id="msgList">{messageList}</div>;
   }
 }
 

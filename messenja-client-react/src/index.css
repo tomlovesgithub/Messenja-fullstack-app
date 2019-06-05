@@ -1,0 +1,40 @@
+#title {
+  text-align: center;
+  font-size: 500%;
+  border: none;
+  font-family: monospace;
+}
+
+form textarea {
+  max-width: 75%;
+  max-height: 75%;
+  min-width: 25%;
+  min-height: 25%;
+  align-self: center;
+  resize: none;
+}
+
+#msgList {
+  background-color: #fff;
+  max-width: auto;
+  overflow: auto;
+  max-width: 75%;
+  max-height: 75%;
+  min-width: 25%;
+  min-height: 25%;
+  align-self: center;
+  resize: none;
+}
+
+#msgList text{
+  background-color: #fdff;
+  overflow: auto;
+  font-size: 1em;
+}
+
+body {
+ background-color: #cccccc;
+}
+html {
+  scroll-behavior: smooth;
+}
