@@ -27,7 +27,8 @@ app.listen(config.port, function(err){
 });
 
 
-mongoose.connection.on('connected', function () {
+mongoose.connection.on('connected', function (err) {
+	if(err) throw err;
 	console.log('Mongoose default connection open to ' + config.db);
 });
 
